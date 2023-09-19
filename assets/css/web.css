@@ -1,0 +1,87 @@
+body {
+    height: 100%;
+    background-image: url("/assets/gfx/background.jpg");
+    background-repeat: no-repeat;
+    background-color: #000000;
+    color: #ffffff;
+}
+
+a{
+    text-decoration: none;
+    transition: color .9s;
+}
+
+a:hover{
+    text-decoration: none;
+    color: #c31713 !important;
+}
+
+.login-box{
+    color: #ffffff !important;
+    background-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+.bg-dark{
+    background-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+.bg-dark a{
+    color: #ffffff !important;
+}
+
+.bg-dark a:hover{
+    text-decoration: none;
+    color: #c31713 !important;
+}
+
+.btn-web{
+    transition: color .9s;
+}
+
+.btn-web:hover{
+    text-decoration: none;
+    color: #c31713 !important;
+}
+
+.list-group-item-dark {
+    color: #ffffff !important;
+    background-color: rgba(0, 0, 0, 0.7) !important;
+    transition: color .9s;
+}
+
+.list-group-item-dark:hover{
+    text-decoration: none;
+    color: #c31713 !important;
+}
+
+.card{
+    background-color: rgba(0, 0, 0, 0.7) !important;
+    color: #c31713 !important;
+}
+
+/* POST */
+
+.post{
+    padding: 3%;
+
+    background-image: url("/assets/gfx/post.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* HELPER don't do it */
+.margin-space_1{
+    margin-top: 1%;
+}
+.margin-space_2{
+    margin-top: 2%;
+}
+.margin-space_3{
+    margin-top: 3%;
+}
+.margin-space_5{
+    margin-top: 5%;
+}
+
+
+
