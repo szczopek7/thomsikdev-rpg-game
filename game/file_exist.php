@@ -7,19 +7,31 @@
  * Email: informacje@thomsikdev.pl
  */
 
-//sprawdzamy czy ktoś nie szuka sobie plikow
-$files_included = get_included_files();
-$searched_file = "game.php";
-$files_included_exist_count = 0;
-foreach ($files_included as $file_path) {
-    if (false !== strpos($file_path, $searched_file)) {
-        // var_dump('JEST '.$file_path . " == " . $searched_file . "<br>");
-        $files_included_exist_count++;
-    }else{
-        //var_dump('NIE '.$file_path . " == " . $searched_file . "<br>");
-    }
+//Sprawdza, czy dany plik istnieje
+/*
+ * Wszystkie operacje mają przechodzić przez plik game.php,
+ * jeśli ktoś czegoś szuka w innym, miejscu to automatycznie ma go przekierować
+*/
 
-    if($files_included_exist_count <= 0){
-        header('Location: /game.php?page=welcome');
+//Pobierze dołączone pliki
+//funkcja get_included_files zwraca tablice
+$files_included = get_included_files();
+
+//Plik, którego szukam
+$searched_file = "game.php";
+
+//Zmienna licząca ilość znalezionych plików
+$files_included_exist_count = 0;
+
+//pętla
+foreach ($files_included as $file_path) {
+    //jeśli znaleziono dany plik dodaj + 1 do zmiennej $files_included_exist_count
+    if (false !== strpos($file_path, $searched_file)) {
+        $files_included_exist_count++;
     }
+}
+
+//jeśli nie znaleziono pliku
+if($files_included_exist_count <= 0){
+    header('Location: /game.php?page=welcome');
 }

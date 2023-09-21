@@ -18,12 +18,17 @@ if(isset($_POST['login']) && isset($_POST['password'])){
         //deklaracja zmiennych
         $id = 0;
         $id_found = 0;
+        $update_or_insert = 0;
 
+        //filtrujemy zmienne
+        //@todo: zmodyfikować kiedyś
         $login = mysqli_real_escape_string($db_connect, $_POST['login']);
         $password = mysqli_real_escape_string($db_connect, $_POST['password']);
 
+        //pobierz z bazy danych id i login
         $get_user = mysqli_query($db_connect,'SELECT id,login FROM users');
 
+        //jeśli znaleziono użytkownika dodaj do $id_found =+1
         foreach ($get_user as $user_value){
             if($user_value['login'] == $login){
                 $id = $user_value['id'];
@@ -33,9 +38,13 @@ if(isset($_POST['login']) && isset($_POST['password'])){
             }
         }
 
+        //jeśli znaleziono użytkownika dodaj do $id_found =+1
         if($id_found == 1){
 
+            //pobierz użytkownika z bazy danych o znalezionym wcześniej ID przypisanym do wprowadzonego loginu
             $get_user_all = $db_connect->query("SELECT * FROM users WHERE id = '$id' LIMIT 1");
+
+            //pobrane dane do zmiennych
             foreach ($get_user_all as $player_value){
                 $user_password = $player_value['password'];
                 $user_id = $player_value['id'];
@@ -43,24 +52,34 @@ if(isset($_POST['login']) && isset($_POST['password'])){
 
             if(password_verify($password,$user_password)){
 
-                $_SESSION = [];
+                //znisz sesje
                 session_destroy();
+                //uruchom sesje
                 session_start();
                 //@todo: zbudować silniejsza fraze
+                //zapisz w sesji user=>user_id
                 $_SESSION['user'] = ( $user_id );
+                //unikalna zaszyfrowana kombinacja ,która ma za zadanie uniemożliwić grzebanie w sesji
+                //@todo; podnieść bezpieczeństwo i tak
                 $session_to_db = sha1($_SERVER['HTTP_USER_AGENT'].time().$_SESSION["user"]);
+                //zapisz w sesji is_logged=>sesje
                 $_SESSION['is_logged'] = ( $session_to_db );
 
-                $update_or_insert = 0;
-                //dodać warunek, że jeśli jest już jakaś sesja z tym to ma zaktualizować
+                //pobierz z db wszystkie sesje
                 $get_sessions = $db_connect->query('SELECT * FROM sessions');
 
+                //sprawdzamy czy jakas sesja dla danego użytkownika już istnieje
                 foreach ($get_sessions as $value_sessions){
                     if($user_id == $value_sessions['user_id']){
                         $update_or_insert++;
                     }
                 }
 
+                /*
+                 * Jeśli sesja nie istnieje {0} - dodaj nową sesje
+                 * Jeśli sesja istnieje {1} - zaktualizuj sesje
+                 * Jeśli sesji jest więcej niż jedna {?} - ktoś kombinował i go wylogowujemy i usuway wszystkie sesje
+                 */
                 if($update_or_insert == 0){
                     $db_connect->query("INSERT INTO sessions (user_id, session) VALUES ('$user_id', '$session_to_db')");
                 }elseif($update_or_insert == 1){
