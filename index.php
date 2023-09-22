@@ -8,35 +8,29 @@
  */
 
 include ('./template/page/header.php');
-?>
 
-<!-- News -->
-
-    <!-- start post-->
-    <div class="post">
-        <p><h4 class="text-end"> 04.08.2022 14:23 </h4><h3 class="text-start">Tytuł </h3></p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <p class="text-end"><i>Administrator</i></p>
-    </div>
-    <!-- end post-->
-
-    <!-- start post-->
-    <div class="post">
-        <p><h4 class="text-end"> 04.08.2022 14:23 </h4><h3 class="text-start">Tytuł </h3></p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <p class="text-end"><i>Administrator</i></p>
-    </div>
-    <!-- end post-->
-
-    <!-- start post-->
-    <div class="post">
-        <p><h4 class="text-end"> 04.08.2022 14:23 </h4><h3 class="text-start">Tytuł </h3></p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <p class="text-end"><i>Administrator</i></p>
-    </div>
-    <!-- end post-->
+if(empty($_GET['page'])){
+    $_GET['page'] = "news";
+    $activepage = $_GET['page'];
+}else{
+    $activepage = $_GET['page'];
+}
 
 
-<?php
+switch ($activepage) {
+    case "image_creators":
+        $activepage = "image_creators";
+        include('page/image_creators.php');
+        break;
+    case "changelog":
+        $activepage = "changelog";
+        include('page/changelog.php');
+        break;
+    default:
+        $activepage = "news";
+        include('page/news.php');
+}
+
+
 include ("./template/page/footer.php");
 ?>

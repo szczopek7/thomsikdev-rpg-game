@@ -64,22 +64,22 @@
 <!--Footer-->
 <content class="container mt-auto ">
     <div class="row">
-        <div class="col-6">
+        <div class="col-4">
 
 
         </div>
-        <div class="col-3">
+        <div class="col-4">
             <ul class="list-group">
                 <a href="#"><li class="list-group-item list-group-item-dark">O grze</li></a>
                 <a href=""><li class="list-group-item list-group-item-dark">Lista wydarzeń</li></a>
-                <a href=""><li class="list-group-item list-group-item-dark">Ostanie aktualizacje</li></a>
+                <a href="index.php?page=changelog"><li class="list-group-item list-group-item-dark">Ostanie aktualizacje</li></a>
             </ul>
         </div>
-        <div class="col-3">
+        <div class="col-4">
             <ul class="list-group">
                 <a href=""><li class="list-group-item list-group-item-dark">Regulamin</li></a>
                 <a href=""><li class="list-group-item list-group-item-dark">Zasady prywatności</li></a>
-                <a href=""><li class="list-group-item list-group-item-dark">Baza obrazów</li></a>
+                <a href="index.php?page=image_creators"><li class="list-group-item list-group-item-dark">Baza obrazów</li></a>
                 <a href=""><li class="list-group-item list-group-item-dark">Twórcy</li></a>
             </ul>
         </div>

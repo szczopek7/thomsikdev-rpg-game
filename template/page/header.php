@@ -42,7 +42,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto mb-2 mb-lg-0 text-center">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Strona główna</a>
+                            <a class="nav-link active" aria-current="page" href="/index.php">Strona główna</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/game.php">Zagraj</a>
@@ -55,6 +55,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Ranking</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.php?page=changelog">Ostanie aktualizacje</a>
                         </li>
                     </ul>
                 </div>

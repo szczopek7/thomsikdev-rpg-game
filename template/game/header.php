@@ -53,11 +53,11 @@
             <span>Życie: %249% / %350%</span>
             <div class="progress">
 
-                <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar bg-danger" role="progressbar" style="width: 77%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <span>Punkty akcji: %100% / %100%</span>
             <div class="progress">
-                <div class="progress-bar bg-warning" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar bg-warning" role="progressbar" style="width: 88%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
         </div>
         <div class="col-9 text-center">
