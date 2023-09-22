@@ -1,3 +1,10 @@
+<?php
+    //oblicza procentowa wartosc zdrowia do progress bar
+    $health_percent = ($player['health_current'] / $player['health_max'])*100;
+    //oblicza procentowa wartosc punktow akcji do progress bar
+    $action_points_percent = ($player['action_points'] / 100)*100;
+?>
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -17,7 +24,7 @@
         </div>
         <div class="col-6 text-center">
             <h1>RPG GAME</h1>
-            <h4>Witaj w grze %admin%</h4>
+            <h4>Witaj w grze <?php echo $player['character_name'];?></h4>
         </div>
         <div class="col-3">
             <div class="card">
@@ -25,15 +32,15 @@
                     <tbody>
                     <tr>
                         <td>POZIOM</td>
-                        <td>%15%</td>
+                        <td><?php echo $player['level'];?></td>
                     </tr>
                     <tr>
                         <td>DOŚWIADCZENIE</td>
-                        <td>%4214215%</td>
+                        <td><?php echo $player['experience'];?> / <?php echo $player['exp_need_to_levelup'];?></td>
                     </tr>
                     <tr>
-                        <td>PIENIADZE</td>
-                        <td>%6931%</td>
+                        <td>MONETY</td>
+                        <td><?php echo $player['money'];?></td>
                     </tr>
                     <tr>
                         <td>GILDIA</td>
@@ -50,14 +57,14 @@
     </div>
     <div class="row margin-space_2">
         <div class="col-3 text-center">
-            <span>Życie: %249% / %350%</span>
+            <span>Życie: <?php echo $player['health_current'];?> / <?php echo $player['health_max'];?></span>
             <div class="progress">
 
-                <div class="progress-bar bg-danger" role="progressbar" style="width: 77%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo $health_percent;?>%" aria-valuenow="<?php echo $health_percent;?>" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
-            <span>Punkty akcji: %100% / %100%</span>
+            <span>Punkty akcji: <?php echo $player['action_points'];?> / 100</span>
             <div class="progress">
-                <div class="progress-bar bg-warning" role="progressbar" style="width: 88%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar bg-warning" role="progressbar" style="width: <?php echo $action_points_percent;?>%" aria-valuenow="<?php echo $action_points_percent;?>" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
         </div>
         <div class="col-9 text-center">

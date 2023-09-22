@@ -1,6 +1,8 @@
 <?php
 require ('app/system.php');
 require ('app/user_login_check.php');
+//wymagaj pliku player
+require ('app/player.php');
 
 // Nagłówek strony
 include('template/game/header.php');
