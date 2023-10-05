@@ -21,6 +21,10 @@ switch ($activepage) {
         $activepage = "city";
         include('game/city.php');
         break;
+    case "admin":
+        $activepage = "admin";
+        include('game/admin.php');
+        break;
     case "profile":
         $activepage = "profile";
         include('game/profile.php');

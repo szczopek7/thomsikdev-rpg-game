@@ -13,6 +13,8 @@ $player = [];
 //player_id => int(), player_id jest definiowany przy logowaniu w pliku login.php
 $player_id = $_SESSION['user'];
 
+
+
 //pobierz wybrane dane z bazy danych dla danego gracza
 $get_player_info = $db_connect->query("SELECT character_name, experience, money,
 level,
@@ -41,8 +43,67 @@ foreach ($get_player_info as $get_player_value){
     $player['intelligence'] = $get_player_value['intelligence'];
     $player['charisma'] = $get_player_value['charisma'];
     $player['health_current'] = $get_player_value['health_current'];
-    $player['health_max'] = $get_player_value['health_max'];
 }
 
 //ilość doświadczenia potrzebna do awansu
 $player['exp_need_to_levelup'] = $config_game['exp_to_levelup'] * $player['level'];
+
+//sprawdzamy czy wyprawa się skończyła
+
+$player_get_expedition = $db_connect->query("SELECT * FROM expedition WHERE user_id = $player_id LIMIT 1");
+$player_get_expedition_is = $player_get_expedition->fetch_assoc();
+
+if($player_get_expedition_is){
+
+    //sprawdzamy czy wyprawa sie skocznyła
+    foreach ($player_get_expedition as $value_player_get_expedition) {
+
+
+        if ($system_game_time > $value_player_get_expedition['date_end']) {
+//
+//            echo $value_player_get_expedition['id'];
+            $player_expedition_id = $value_player_get_expedition['id'];
+//            echo $value_player_get_expedition['giv_money'];
+//            echo $value_player_get_expedition['giv_exp'];
+//            echo $value_player_get_expedition['giv_hp'];
+            //dodanie zdobytych exp/money dla gracza jesli hp - to
+
+            $hp_player_expeditione = $player['health_current'] - $value_player_get_expedition['giv_hp'];
+
+
+            if($hp_player_expeditione <= 0){
+                $action_point_player = 0;
+
+                $player_expedition_die_sql = "UPDATE users SET action_points = '$action_point_player', health_current = 0 WHERE id = '$player_id'";
+
+                $player_expedition_finish_die_expedition = $db_connect->query($player_expedition_die_sql);
+
+                if($player_expedition_finish_die_expedition){
+                    $errormsg .= 'Misja wykonana, postać odniosła poważne obrażenia!';
+//                    echo '<div class="alert alert-danger" role="alert">
+//                         Jesteś już na wyprawie
+//                      </div>';
+                }
+
+
+            }else{
+                $money_player_expeditione = $player['money'] + $value_player_get_expedition['giv_money'];
+                $experience_player_expeditione = $player['experience'] + $value_player_get_expedition['giv_exp'];
+
+                $player_expedition_sql = "UPDATE users SET money = '$money_player_expeditione', experience = '$experience_player_expeditione', health_current = '$hp_player_expeditione'  WHERE id = '$player_id'";
+                $player_expedition_finish_expedition = $db_connect->query($player_expedition_sql);
+
+                if($player_expedition_finish_expedition){
+//                    echo '<div class="alert alert-warning" role="alert">
+//                         Misja wykonana, król jest zadowolony !
+//                      </div>';
+                }
+            }
+
+            //usun wyprawe
+            $db_connect->query("DELETE FROM expedition WHERE id = '$player_expedition_id'");
+
+
+        }
+    }
+}

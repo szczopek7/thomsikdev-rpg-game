@@ -88,4 +88,5 @@ Powiadomienia
             ?>
         </div>
         <div class="col-9">
+
             <div class="game-area">

@@ -12,6 +12,7 @@ require ('./config/config_game.php');
 
 //deklaracja zmiennej error
 $errormsg = "";
+$infomsg = "";
 
 //błędy PHP
 if(DEV_MODE){
@@ -39,3 +40,6 @@ $db_connect->set_charset('utf8mb4');
 if (mysqli_connect_errno()) {
     throw new RuntimeException('mysqli connection error: ' . mysqli_connect_error());
 }
+
+//czas gry
+$system_game_time = date("Y-m-d H:i:s");
