@@ -17,3 +17,6 @@ $config_game['exp_to_levelup'] = 1024;
 
 $config_game['exp_multipler'] = 1;
 $config_game['money_multipler'] = 1;
+
+
+$config_game['action_points_per_5_minutes'] = 10;

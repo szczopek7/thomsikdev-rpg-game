@@ -92,7 +92,9 @@ if(isset($_POST['expedition_type'])){
                 </div>
                 <div class="col-6">
                     <h3 style="color:white;">Ochrona szlaków kupieckich</h3>
-                    <p style="color:white;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <p style="color:white;">
+                        Król powierza wam ważne zadanie - zapewnić ochronę kluczowym szlakom kupieckim królestwa. Handel jest kręgosłupem naszej gospodarki, a szlaki kupieckie są zagrożone przez rosnące bandy rabusiów i bestie, które grasują na drogach. Waszym zadaniem jest stworzyć i dowodzić oddziałem strażników, którzy będą patrolować te trasy, eliminując zagrożenia i utrzymując bezpieczeństwo dla kupców i karawan.
+                    </p>
                 </div>
             </div>
             <div class="row">

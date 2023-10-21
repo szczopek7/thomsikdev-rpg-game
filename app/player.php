@@ -48,6 +48,41 @@ foreach ($get_player_info as $get_player_value){
 //ilość doświadczenia potrzebna do awansu
 $player['exp_need_to_levelup'] = $config_game['exp_to_levelup'] * $player['level'];
 
+//level up
+if($player['experience'] >= $player['exp_need_to_levelup']){
+    //leveup
+    $level_up_str = $player['strength'] + 1;
+    $level_up_dex = $player['dexterity'] + 1;
+    $level_up_int = $player['intelligence'] + 1;
+    $level_up_cha = $player['charisma'] + 1;
+    $level_up_vit = $player['vitality'] + 1;
+    $level_up_max_hp = $player['health_max'] + 5;
+    $level_up_level = $player['level'] + 1;
+
+    $player_exp_to_level_up = $player['experience'] - $player['exp_need_to_levelup'];
+
+    $SQL_level_up = "UPDATE users SET strength = '$level_up_str',
+                 dexterity = '$level_up_dex',
+                 intelligence = '$level_up_int',
+                 charisma = '$level_up_cha',
+                 vitality = '$level_up_vit',
+                 action_points = '100',
+                 health_current = '$level_up_max_hp',
+                 health_max = '$level_up_max_hp',
+                 level = '$level_up_level',
+                 experience = '$player_exp_to_level_up'
+                 WHERE id = '$player_id'";
+
+    $player_exec_level_up = $db_connect->query($SQL_level_up);
+
+    if($player_exec_level_up){
+        $info_add = "Gracz od id  ".$player_id." awansował na poziom:".$level_up_level;
+        $db_connect->query("INSERT INTO system_logs (log) VALUES ('$info_add')");
+    }
+
+}
+
+
 //sprawdzamy czy wyprawa się skończyła
 
 $player_get_expedition = $db_connect->query("SELECT * FROM expedition WHERE user_id = $player_id LIMIT 1");
