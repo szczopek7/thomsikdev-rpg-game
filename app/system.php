@@ -8,7 +8,6 @@
  */
 
 require ('./config/config.php');
-require ('./config/config_game.php');
 
 //deklaracja zmiennej error
 $errormsg = "";
@@ -40,6 +39,8 @@ $db_connect->set_charset('utf8mb4');
 if (mysqli_connect_errno()) {
     throw new RuntimeException('mysqli connection error: ' . mysqli_connect_error());
 }
+
+require ('./config/config_game.php');
 
 //czas gry
 $system_game_time = date("Y-m-d H:i:s");
