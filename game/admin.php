@@ -6,7 +6,7 @@
  * Time: 17:05
  * Email: informacje@thomsikdev.pl
  */
-require_once ('file_exist.php');
+
 
 $name_of_page = "Admin Panel";
 
@@ -32,9 +32,9 @@ switch ($action) {
 <div class="post">
     <p><h3 class="text-start"><?php echo $name_of_page;?> </h3></p>
     <p>
-        <a href="game.php?page=admin&action=1"><button class="btn btn-info">Dodaj punkty aktywności</button></a>
+        <a href="index.php?game=admin&action=1"><button class="btn btn-info">Dodaj punkty aktywności</button></a>
         <hr>
-        <a href="game.php?page=admin&action=2"><button class="btn btn-info">Usuń punkty aktywności</button></a>
+        <a href="index.php?game=admin&action=2"><button class="btn btn-info">Usuń punkty aktywności</button></a>
         <hr>
     </p>
 </div>

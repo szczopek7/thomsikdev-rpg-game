@@ -8,13 +8,23 @@
  */
 
 //co każde 5 minut dodaj wszystkim 10 action point (chyba że mają 100, wtedy nic)
-//error_reporting(E_ALL);
-//ini_set("display_errors", 1);
+//@TODO: Przerobić na CARBON
 
-require_once ('/volume1/web/thomsikdev_rpg/config/config.php');
-//require_once ('../config/config.php');
+require('/volume1/web/thomsikdev_rpg/vendor/autoload.php');
+const BASEDIR = "/volume1/web/thomsikdev_rpg";
+//env load
+$dotenv = Dotenv\Dotenv::createImmutable(BASEDIR);
+$dotenv->Load();
 
-$db_connect = mysqli_connect($_hostdb, $_username, $_password, $_database,$_hostport);
+//connect to DB
+$db_connect = mysqli_connect($_ENV['DB_hostdb'], $_ENV['DB_username'], $_ENV['DB_password'], $_ENV['DB_database'],$_ENV['DB_hostport']);
+//set charset for DB
+$db_connect->set_charset('utf8mb4');
+
+//check errors of DB
+if (mysqli_connect_errno()) {
+    throw new RuntimeException('mysqli connection error: ' . mysqli_connect_error());
+}
 
 require_once ('/volume1/web/thomsikdev_rpg/config/config_game.php');
 //require_once ('../config/config_game.php');
@@ -40,16 +50,20 @@ foreach ($get_all_users as $single_user){
 
     $date_next_add_action_points = date("Y-m-d H:i:s", strtotime($system_game_time . "+5 minutes"));
 
-    $SQL = "UPDATE users SET action_points = '$new_action_points', date_action_points = '$date_next_add_action_points' WHERE id = '$single_user_id'";
-
-    $add_action_points = $db_connect->query($SQL);
-
-    $info_add = "CRON Dodano punktów akcji";
-
-    if($add_action_points){
-        $db_connect->query("INSERT INTO system_logs (log) VALUES ('$info_add')");
-        $db_connect->query("UPDATE game_settings SET last_update_action_points = '$system_game_time'");
+    try {
+        //Dodaj punkty SQL
+        $SQL = "UPDATE users SET action_points = '$new_action_points', date_action_points = '$date_next_add_action_points' 
+             WHERE id = '$single_user_id'";
+        //Wykonaj zapytanie
+        $add_action_points = $db_connect->query($SQL);
+    } catch (mysqli_sql_exception $e){
+        echo show_error($e);
     }
 
-
 }
+
+$db_connect->query("UPDATE game_settings SET last_update_action_points = '$system_game_time'");
+
+
+
+

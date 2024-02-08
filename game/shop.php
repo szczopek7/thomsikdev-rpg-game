@@ -6,7 +6,7 @@
  * Time: 17:05
  * Email: informacje@thomsikdev.pl
  */
-require_once ('file_exist.php');
+
 
 $name_of_page = "Sklep";
 

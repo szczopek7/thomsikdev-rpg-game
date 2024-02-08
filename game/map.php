@@ -6,4 +6,3 @@
  * Time: 17:52
  * Email: informacje@thomsikdev.pl
  */
-require_once ('file_exist.php');

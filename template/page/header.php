@@ -45,7 +45,7 @@
                             <a class="nav-link active" aria-current="page" href="/index.php">Strona główna</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/game.php">Zagraj</a>
+                            <a class="nav-link" href="/index.php?page=login">Zagraj</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">O grze</a>
@@ -64,21 +64,6 @@
             </div>
         </nav>
     </div>
-</div>
-
-<!-- Notify block -->
-<div class="container">
-
-    <?php
-        if($errormsg == "" || $errormsg == " " || empty($errormsg) || is_null($errormsg)){
-
-        }else{
-            echo '<div class="alert alert-danger" role="alert">
-                  '.$errormsg.'
-                </div>';
-        }
-    ?>
-
 </div>
 
 <!-- main content container -->

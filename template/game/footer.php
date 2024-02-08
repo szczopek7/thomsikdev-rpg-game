@@ -1,21 +1,29 @@
-</div>
-</div>
-</div>
-</div>
 
-<div class="container">
-    <?php if(DEV_MODE){
-        ?>
-            <hr>
-        <h2>Narzędzia Dev</h2>
-            <hr>
-        <a href="/game.php?page=welcome">Główna</a>
-    <?php
-    }
-    ?>
+            <?php
+            if(!empty($errormsg)){
+                echo '
+                            <br />
+                            <div class="alert alert-danger" role="alert">
+                                  '.$errormsg.'
+                            </div>
+                        ';
+            }
+            ?>
+
+            <?php
+            if(!empty($infomsg)){
+                echo '
+                            <br />
+                            <div class="alert alert-warning" role="alert">
+                                  '.$infomsg.'
+                            </div>
+                        ';
+            }
+            ?>
+          </div>
+      </div>
+    </div>
 </div>
-
-
 
 </body>
 </html>

@@ -8,13 +8,26 @@
  */
 ?>
 
+<!-- Notify block -->
+
+    <?php
+    if(!empty($errormsg)){
+        echo '
+                <br />
+                <div class="alert alert-danger" role="alert">
+                      '.$errormsg.'
+                </div>
+            ';
+    }
+    ?>
+
 </div>
 <!-- Rankings -->
 <div class="col-lg-3">
     <div class="card">
         <div class="card-body">
-                <a href="/login.php" class="btn btn-web btn-dark">Zaloguj się</a>
-                <a href="/register.php" class="btn btn-web btn-dark">Zarejestru się</a>
+                <a href="/index.php?page=login" class="btn btn-web btn-dark">Zaloguj się</a>
+                <a href="/index.php?page=register" class="btn btn-web btn-dark">Zarejestru się</a>
         </div>
     </div>
     <div class="card">
@@ -86,7 +99,7 @@
     </div>
     <div class="row">
         <div class="col-12 text-center">
-            Create by ThomsikDev &copy; 2022
+            Create by ThomsikDev &copy; 2022 - <?php echo date('Y');?>
         </div>
     </div>
 </content>

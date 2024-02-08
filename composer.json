@@ -1,0 +1,12 @@
+{
+    "require-dev": {
+        "symfony/var-dumper": "^6.0",
+        "filp/whoops": "^2.15"
+    },
+    "require": {
+        "vlucas/phpdotenv": "^5.5",
+        "ext-mysqli": "*",
+        "league/plates": "^3.5",
+        "nesbot/carbon": "^2.71"
+    }
+}

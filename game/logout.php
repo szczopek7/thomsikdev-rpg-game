@@ -7,12 +7,4 @@
  * Email: informacje@thomsikdev.pl
  */
 
-session_start();
-
-$_SESSION = [];
-unset( $_SESSION );
-session_unset();
-session_destroy();
-
-header( 'Location: index.php' );
-exit;
+destroy_session();

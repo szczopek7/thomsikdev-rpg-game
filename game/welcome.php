@@ -6,14 +6,14 @@
  * Time: 17:07
  * Email: informacje@thomsikdev.pl
  */
-require_once ('file_exist.php');
+
 
 $name_of_page = "Witaj ponownie";
 
 ?>
 
 <div class="post">
-    <p><h3 class="text-start"><?php echo $name_of_page;?> </h3></p>
+    <h3 class="text-start"><?php echo $name_of_page;?> </h3>
     <p>
         Ostatnie zmiany:
     </p>

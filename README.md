@@ -11,5 +11,10 @@ If needed, i can add ENG subtitles(to project and youtube Video), just create a 
 Release versions is clear match to episodes on youtube.
 https://www.youtube.com/@thomsikdev
 
+The game uses libraries so:
+php composer.phar update
+
 Software made available under MIT license. 
 If anyone ever uses it I will be very pleased if you mention me :)
+
+
