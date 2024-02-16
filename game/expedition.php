@@ -40,6 +40,24 @@ if(isset($_POST['expedition_type'])){
             echo show_error($e);
         }
 
+        if($check_user_on_expedtion){
+            $errormsg .= 'Jesteś już na wyprawie.';
+            return false;
+        }
+
+        //sprawdzamy czy gracz nie jest w pracy
+        try {
+            $get_job_work = $db_connect->query("SELECT * FROM job_worth WHERE user_id = $player_id LIMIT 1");
+            $check_user_on_work = $get_job_work->fetch_assoc();
+        } catch (mysqli_sql_exception $e) {
+            echo show_error($e);
+        }
+
+        if($check_user_on_work){
+            $errormsg .= 'Jesteś w pracy wiec nie możesz brać udziału w wyprawie.';
+            return false;
+        }
+
         if($player['action_points'] < 10){
             $errormsg .= 'Masz za mało punktów akcji, aby wyruszyć na wyprawę.';
             return false;
@@ -47,11 +65,6 @@ if(isset($_POST['expedition_type'])){
 
         if($player['health_current'] < 20){
             $errormsg .= 'Masz za mało zdrowia, aby wyruszyć na wyprawę.';
-            return false;
-        }
-
-        if($check_user_on_expedtion){
-            $errormsg .= 'Jesteś już na wyprawie.';
             return false;
         }
 

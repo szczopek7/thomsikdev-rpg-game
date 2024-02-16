@@ -1,3 +1,13 @@
+create table if not exists city
+(
+    id           int auto_increment
+        primary key,
+    city_name    varchar(255)                   null,
+    type_of_city varchar(128) default 'village' null,
+    city_image   varchar(255)                   null,
+    status       int          default 1         null
+);
+
 create table if not exists expedition
 (
     id          int auto_increment
@@ -20,7 +30,20 @@ create table if not exists game_settings
     exp_multipler               int      null,
     money_multipler             int      null,
     action_points_per_5_minutes int      null,
-    last_update_action_points   datetime null
+    last_update_action_points   datetime null,
+    job_worth_1_money_base      int      null
+);
+
+create table if not exists job_worth
+(
+    id          int auto_increment
+        primary key,
+    user_id     int                                  null,
+    giv_money   int                                  null,
+    date_start  datetime                             null,
+    date_end    datetime                             null,
+    type        tinyint                              null,
+    date_create datetime default current_timestamp() null
 );
 
 create table if not exists sessions
@@ -38,7 +61,8 @@ create table if not exists system_logs
 (
     id          int auto_increment
         primary key,
-    log         varchar(512)                         null,
+    tag         varchar(255)                         null,
+    log         text                                 null,
     date_create datetime default current_timestamp() null,
     constraint system_logs_pk2
         unique (id)
@@ -55,7 +79,7 @@ create table if not exists users
     experience         int      default 0                   not null,
     money              int      default 0                   not null,
     level              int      default 1                   not null,
-    city               int                                  null,
+    city               int      default 1                   null,
     action_points      tinyint  default 100                 not null,
     vitality           int      default 0                   null,
     strength           int      default 0                   null,

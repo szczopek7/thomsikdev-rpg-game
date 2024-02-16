@@ -19,7 +19,7 @@ try {
      *  Pobierz ustawienia z DB
      *  Tabela: game_settings
      */
-    $get_base_config_from_db = $db_connect->query('SELECT exp_to_levelup,exp_multipler,money_multipler,action_points_per_5_minutes 
+    $get_base_config_from_db = $db_connect->query('SELECT exp_to_levelup,exp_multipler,money_multipler,action_points_per_5_minutes,job_worth_1_money_base 
                                                             FROM game_settings LIMIT 1')->fetch_assoc();
 
     //Przypisz do elementów config_game wartości pobrane z DB
@@ -27,6 +27,7 @@ try {
     $config_game['exp_multipler'] = $get_base_config_from_db['exp_multipler'];
     $config_game['money_multipler'] = $get_base_config_from_db['money_multipler'];
     $config_game['action_points_per_5_minutes'] = $get_base_config_from_db['action_points_per_5_minutes'];
+    $config_game['job_worth_1_money_base'] = (int)$get_base_config_from_db['job_worth_1_money_base'];
 
 }catch (mysqli_sql_exception $e){
     echo show_error($e);

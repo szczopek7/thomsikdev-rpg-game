@@ -91,12 +91,22 @@ if(get_session("thomsikdevlocal") === true){
     $activePageGame = $_GET['game'];
 
     //zakres stron
-    $arrayOfPagesGame = ['logout','city','admin','profile','expedition','welcome','work','map'];
+    $arrayOfPages = ['city','profile','expedition','welcome','work','map'];
+    $arrayOfBuilds = ['build_military_office'];
+    $arrayOfAdditionals = ['logout', 'admin', 'no_exist_build'];
+
+    //łączymy powyższe zakresy w jeden
+    $arrayOfPagesGame =  array_merge($arrayOfPages,$arrayOfBuilds,$arrayOfAdditionals);
+
     //aktualna strona, sprawdzamy czy istnieje
     $currentPageGame = in_array($activePageGame, $arrayOfPagesGame, true);
 
     //jeśli tak załaduj ją, jeśli nie przenieś do domyślnej
-    if($currentPageGame){
+    $is_build_template = substr($activePageGame, 0, 5);
+
+    if($is_build_template === "build"){
+        require_once (BASEDIR . '/game/builds/'.$activePageGame.'.php');
+    }else if($currentPageGame){
         require_once (BASEDIR . '/game/'.$activePageGame.'.php');
     }else{
         include(BASEDIR . '/game/welcome.php');
@@ -129,7 +139,6 @@ if(get_session("thomsikdevlocal") !== true){
     //zakres stron
     $arrayOfPagesSite = ['news','login','image_creators','changelog','register'];
 
-    //aktualna strona, sprawdzamy czy istnieje
     $currentPageSite = in_array($activePageSite, $arrayOfPagesSite, true);
 
     //jeśli tak załaduj ją, jeśli nie przenieś do domyślnej
@@ -143,4 +152,5 @@ if(get_session("thomsikdevlocal") !== true){
 
     ob_end_flush();
 }
+//aktualna strona, sprawdzamy czy istnieje
 

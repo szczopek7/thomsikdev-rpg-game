@@ -20,24 +20,28 @@ $player = [];
 $player_id = $_SESSION['user'];
 
     //pobierz wybrane dane z bazy danych dla danego gracza
-    $get_player_info = $db_connect->query("SELECT character_name, experience, money,
-    level,
-    city,
-    action_points,
-    vitality,
-    strength,
-    dexterity,
-    intelligence,
-    charisma,
-    health_current,
-    health_max FROM users WHERE id = '$player_id' LIMIT 1")->fetch_assoc();
+    try {
+        $get_player_info = $db_connect->query("SELECT character_name, experience, money,
+        level,
+        city,
+        action_points,
+        vitality,
+        strength,
+        dexterity,
+        intelligence,
+        charisma,
+        health_current,
+        health_max FROM users WHERE id = '$player_id' LIMIT 1")->fetch_assoc();
+    }catch (mysqli_sql_exception $e){
+        echo show_error($e);
+    }
 
     //przypisz dane z DB do zdefiniowanych w tablicy player wartości
-    $player['character_name'] = $get_player_info['character_name'];
+    $player['character_name'] = (string)$get_player_info['character_name'];
     $player['experience'] = $get_player_info['experience'];
     $player['money'] = $get_player_info['money'];
     $player['level'] = $get_player_info['level'];
-    $player['city'] = $get_player_info['city'];
+    $player['city'] = (int)$get_player_info['city'];
     $player['health_max'] = $get_player_info['health_max'];
     $player['action_points'] = $get_player_info['action_points'];
     $player['vitality'] = $get_player_info['vitality'];
@@ -65,7 +69,8 @@ $player['exp_need_to_levelup'] = $config_game['exp_to_levelup'] * $player['level
         $player_exp_to_level_up = $player['experience'] - $player['exp_need_to_levelup'];
 
         //Update stats when user level up
-        $SQL_level_up = "UPDATE users SET strength = '$level_up_str',
+        try{
+            $SQL_level_up = "UPDATE users SET strength = '$level_up_str',
                      dexterity = '$level_up_dex',
                      intelligence = '$level_up_int',
                      charisma = '$level_up_cha',
@@ -77,7 +82,10 @@ $player['exp_need_to_levelup'] = $config_game['exp_to_levelup'] * $player['level
                      experience = '$player_exp_to_level_up'
                      WHERE id = '$player_id'";
 
-        $player_exec_level_up = $db_connect->query($SQL_level_up);
+            $player_exec_level_up = $db_connect->query($SQL_level_up);
+        }catch (mysqli_sql_exception $e){
+            echo show_error($e);
+        }
 
         try{
             $SQL_level_up = "UPDATE users SET strength = '$level_up_str',
@@ -167,4 +175,80 @@ try{
             }
         }
     }
+
+//pobieramy informacje o pracach gracza
+try{
+    $player_get_job_worth = $db_connect->query("SELECT * FROM job_worth WHERE user_id = $player_id LIMIT 1");
+    $player_get_job_worth_is = $player_get_job_worth->fetch_assoc();
+}catch (mysqli_sql_exception $e){
+    echo show_error($e);
+}
+
+
+if ($player_get_job_worth_is) {
+    //sprawdzamy czy wyprawa sie skocznyła
+    foreach ($player_get_job_worth as $value_player_get_job_worth) {
+        if ($system_game_time > $value_player_get_job_worth['date_end']) {
+
+            $player_job_worth_id = $value_player_get_job_worth['id'];
+
+            $money_player_worth  = $player['money'] + $value_player_get_job_worth['giv_money'];
+
+            try{
+                $player_worth_sql = "UPDATE users SET money = '$money_player_worth' WHERE id = '$player_id'";
+                $player_job_worth_finish = $db_connect->query($player_worth_sql);
+            }catch (mysqli_sql_exception $e){
+                echo show_error($e);
+            }
+
+            if ($player_job_worth_finish) {
+                set_flash_msg('Ukończyłeś pracę');
+            }
+
+            try{
+                //usun wyprawe
+                $db_connect->query("DELETE FROM job_worth WHERE id = '$player_job_worth_id'");
+            }catch (mysqli_sql_exception $e){
+                echo show_error($e);
+            }
+
+        }
+    }
+}
+
+    //City name set @TODO: Przerobić z DB
+
+    try{
+        $get_All_Cities = $db_connect->query("SELECT * FROM city WHERE status = 1");
+    }catch (mysqli_sql_exception $e){
+        echo show_error($e);
+    }
+
+    if($player['city'] === 1){
+        $game_player_city_name = "Kroky";
+    }
+
+    if($player['city'] === 2){
+        $game_player_city_name = "Morine";
+    }
+
+    if($player['city'] === 3){
+        $game_player_city_name = "Nova";
+    }
+
+    $get_All_Cities_Num = mysqli_num_rows($get_All_Cities);
+
+    //City check exist
+    if($player['city'] > $get_All_Cities_Num){
+        $game_player_city_name = "Błąd, czekasz na teleport do domu ...";
+        try{
+            $db_connect->query("UPDATE users SET city = '1' WHERE id = '$player_id'");
+            $_game_php_error_msg = "Gracz wybrał niestniejące miasto na mapie id gracza: ".$player_id;
+            $db_connect->query("INSERT INTO system_logs (tag,log) VALUES ('map_error', '$_game_php_error_msg')");
+        }catch (mysqli_sql_exception $e){
+            echo show_error($e);
+        }
+
+    }
+
 
