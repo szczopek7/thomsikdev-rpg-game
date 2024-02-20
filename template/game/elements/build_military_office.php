@@ -1,3 +1,14 @@
+<?php
+/**
+ * thomsikdev_rpg - build_military_office.php
+ * User: Patryk "Thomsik Dev" Tomasik
+ * Date: 20.02.2024
+ * Time: 23:29
+ * Email: informacje@thomsikdev.pl
+ */
+
+?>
+
 <div class="post">
     <div class="row">
         <div class="col-3">

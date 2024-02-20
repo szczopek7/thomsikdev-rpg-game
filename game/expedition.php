@@ -58,7 +58,7 @@ if(isset($_POST['expedition_type'])){
             return false;
         }
 
-        if($player['action_points'] < 10){
+        if($player['action_points'] < 5){
             $errormsg .= 'Masz za mało punktów akcji, aby wyruszyć na wyprawę.';
             return false;
         }
@@ -68,8 +68,10 @@ if(isset($_POST['expedition_type'])){
             return false;
         }
 
+
+        //Czas wyprawy 1 minuta
         $date_format_start = \Carbon\Carbon::Now()->toDateTimeString();
-        $date_format_end = \Carbon\Carbon::Now()->addMinutes(5)->toDateTimeString();
+        $date_format_end = \Carbon\Carbon::Now()->addMinutes(1)->toDateTimeString();
 
         $exp_gain = drawNumber(40, 120) * $config_game['exp_multipler'];
 
@@ -96,7 +98,7 @@ if(isset($_POST['expedition_type'])){
         }
 
         if($start_expedition){
-            $expedition_player_action = $player['action_points'] - 10;
+            $expedition_player_action = $player['action_points'] - 5;
 
             try {
                 $db_connect->query("UPDATE users SET action_points = '$expedition_player_action' WHERE id = $player_id");

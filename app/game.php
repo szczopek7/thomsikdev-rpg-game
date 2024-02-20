@@ -147,7 +147,11 @@ try{
                     }
 
                     if ($player_expedition_finish_die_expedition) {
-                        $errormsg .= 'Misja wykonana, postać odniosła poważne obrażenia!';
+                        $fail_expedition_die_msg = 'Misja wykonana, postać odniosła poważne obrażenia! 
+                        Za tą misje nie otrzymałeś doświadczenia ani złota.';
+                        set_flash_msg($fail_expedition_die_msg);
+                        create_report_action($fail_expedition_die_msg);
+
                     }
                 } else {
                     $money_player_expeditione = $player['money'] + $value_player_get_expedition['giv_money'];
@@ -161,7 +165,18 @@ try{
                     }
 
                     if ($player_expedition_finish_expedition) {
-                        set_flash_msg('Ukończyłeś wyprawę');
+
+                        if($value_player_get_expedition['giv_hp'] > 0){
+                            $succes_expedition_msg = 'Ukończyłeś wyprawę, zarobiłeś '.$value_player_get_expedition['giv_money'].' złota 
+                            oraz '.$value_player_get_expedition['giv_exp'].' punktów doświadczenia. Niestety odnosłeś obrażenia które
+                             zabrały ci '.$value_player_get_expedition['giv_hp'].' punktów zdrowia.';
+                        }else{
+                            $succes_expedition_msg = 'Ukończyłeś wyprawę, zarobiłeś '.$value_player_get_expedition['giv_money'].' złota 
+                            oraz '.$value_player_get_expedition['giv_exp'].' punktów doświadczenia.';
+                        }
+
+                         set_flash_msg($succes_expedition_msg);
+                        create_report_action($succes_expedition_msg);
                     }
                 }
 
@@ -202,7 +217,9 @@ if ($player_get_job_worth_is) {
             }
 
             if ($player_job_worth_finish) {
-                set_flash_msg('Ukończyłeś pracę');
+                $job_1_end_msg = 'Ukończyłeś pracę i zarobiłeś za nią '.$value_player_get_job_worth['giv_money'].' monet.';
+                set_flash_msg($job_1_end_msg);
+                create_report_action($job_1_end_msg);
             }
 
             try{

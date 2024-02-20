@@ -7,6 +7,12 @@
  * Email: informacje@thomsikdev.pl
  */
 
+/*
+ * @TODO: Poprawić wygląd, może ikony dla budynków?
+ *
+ */
+
+
 //player city
 $player_city = $player['city'];
 
@@ -14,7 +20,8 @@ $get_City = $db_connect->query("SELECT * FROM city WHERE id = '$player_city' AND
 
 if($player_city === 1){
     //definicja budynków dla Kroky
-    $city_array= [ 'build_military_office' => 'Biuro Wojskowe'];
+    $city_array= [ 'build_military_office' => 'Biuro Wojskowe',
+        'build_healer' => 'Uzdrowicielka'];
 }elseif ($player_city === 2){
     //definicja budynków dla Morine
     $city_array= [ 'aaa' => 'aaa'];

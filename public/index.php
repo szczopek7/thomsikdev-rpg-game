@@ -76,6 +76,8 @@ if(get_session("thomsikdevlocal") === true){
 
     //weryfikacja czy gracz jest zalogowany
     require_once(BASEDIR . '/app/is_logged.php');
+    //załaduj funckje
+    require_once(BASEDIR . '/func/report.php');
     //główny plik gry
     require_once(BASEDIR . '/app/game.php');
     //góra strony
@@ -91,8 +93,8 @@ if(get_session("thomsikdevlocal") === true){
     $activePageGame = $_GET['game'];
 
     //zakres stron
-    $arrayOfPages = ['city','profile','expedition','welcome','work','map'];
-    $arrayOfBuilds = ['build_military_office'];
+    $arrayOfPages = ['city','profile','report','expedition','welcome','work','map'];
+    $arrayOfBuilds = ['build_military_office','build_healer'];
     $arrayOfAdditionals = ['logout', 'admin', 'no_exist_build'];
 
     //łączymy powyższe zakresy w jeden

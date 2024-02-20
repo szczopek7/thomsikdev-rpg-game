@@ -20,6 +20,7 @@
 
 <!--    <a href="/index.php?game=profile"><li class="list-group-item list-group-item-dark">ZADANIA</li></a>-->
 <!--    <a href="/index.php?game=profile"><li class="list-group-item list-group-item-dark">WIADOMOŚCI</li></a>-->
+    <a href="/index.php?game=report"><li class="list-group-item list-group-item-dark">RAPORTY</li></a>
 <!--    <a href="/index.php?game=profile"><li class="list-group-item list-group-item-dark">GILDIA</li></a>-->
 <!--    <a href="/index.php?game=profile"><li class="list-group-item list-group-item-dark">USTAWIENIA</li></a>-->
     <a href="/index.php?game=logout"><li class="list-group-item list-group-item-dark">WYLOGUJ</li></a>

@@ -59,10 +59,12 @@ if(isset($_GET['job_worth'])){
         return false;
     }
 
-    if($player['health_current'] < 20){
-        $errormsg .= 'Masz za mało zdrowia, aby wyruszyć na wyprawę minimum to 20.';
-        return false;
-    }
+    //Usuwamy aby gracz miał możliwość zarobić na uzdrowienie
+
+//    if($player['health_current'] < 20){
+//        $errormsg .= 'Masz za mało zdrowia, aby wyruszyć na wyprawę minimum to 20.';
+//        return false;
+//    }
 
     $_GET['job_worth'] = (int)$_GET['job_worth'];
 

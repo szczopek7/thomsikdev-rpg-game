@@ -20,7 +20,7 @@
             <hr>
             <?php
             foreach($city_array as $city_array_key => $city_array_value){
-                echo '<a href="index.php?game='.$city_array_key.'"><button class="btn-dark btn btn-sm"> Odwiedź '.$city_array_value.'</button></a>';
+                echo '<a href="index.php?game='.$city_array_key.'"><button class="btn-dark btn btn-sm"> Odwiedź '.$city_array_value.'</button></a><br><br>';
             }
             ?>
 
